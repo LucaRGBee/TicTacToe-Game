@@ -8,7 +8,7 @@ let board = [
   [0, 0, 0],
 ];
 
-function clicked(b, x, y) {
+async function clicked(b, x, y) {
   h2.textContent = `Player ${2 - (turn % 2)}\'s Turn`;
 
   if (turn % 2 == 0) {
@@ -20,34 +20,8 @@ function clicked(b, x, y) {
   }
 
   b.disabled = true;
+
   checkGame();
-  turn++;
-}
-
-function checkGame() {
-  for (let x = 0; x < 3; x++) {
-    if (
-      Math.abs(board[x][0] + board[x][1] + board[x][2]) == 3 ||
-      Math.abs(board[0][x] + board[1][x] + board[2][x]) == 3
-    ) {
-      gameEnd();
-      return;
-    }
-  }
-
-  if (Math.abs(board[0][0] + board[1][1] + board[2][2]) == 3) {
-    gameEnd();
-    return;
-  }
-
-  if (Math.abs(board[2][0] + board[1][1] + board[0][2]) == 3) {
-    gameEnd();
-    return;
-  }
-
-  if (turn == 8) {
-    gameEnd(true);
-  }
 }
 
 function gameEnd(a) {
@@ -64,18 +38,27 @@ function gameEnd(a) {
   h2.textContent = `Player ${(turn % 2) + 1} Wins`;
 }
 
-async function test(){
-  const response =  await fetch("http://localhost:8080/check-game", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({board: [1,0,0,0,0,0,0,]})
-  }).catch(console.error)
-
-  console.log(response
-    
-  )
+async function checkGame() {
+  await fetch("http://localhost:8080/check-game", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ board: board, turn: turn }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (!data["result"] == 0) {
+        gameEnd(data["result"] == -1);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  turn++;
 }
-
-test()
