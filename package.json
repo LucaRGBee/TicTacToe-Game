@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "cd src/api && nodemon server.js",
+    "start": "cd src/api && node /api/server.js"
   },
   "repository": {
     "type": "git",
