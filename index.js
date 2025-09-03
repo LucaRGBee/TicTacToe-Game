@@ -63,3 +63,19 @@ function gameEnd(a) {
   }
   h2.textContent = `Player ${(turn % 2) + 1} Wins`;
 }
+
+async function test(){
+  const response =  await fetch("http://localhost:8080/check-game", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({board: [1,0,0,0,0,0,0,]})
+  }).catch(console.error)
+
+  console.log(response
+    
+  )
+}
+
+test()
