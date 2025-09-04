@@ -1,9 +1,13 @@
 {
   "name": "ui",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "author": "",
+  "scripts": {
+    "start": "npx serve"
+  },
   "license": "ISC",
   "packageManager": "pnpm@10.15.1"
 }

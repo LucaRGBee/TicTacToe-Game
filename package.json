@@ -4,6 +4,17 @@
   "description": "",
   "keywords": [],
   "author": "",
+  "scripts": {
+    "dev": "pnpm --filter api dev & pnpm --filter ui start",
+    "build": "rollup -c -w"
+  },
   "license": "ISC",
-  "packageManager": "pnpm@10.15.1"
+  "packageManager": "pnpm@10.15.1",
+  "dependencies": {
+    "prettier": "^3.6.2",
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "devDependencies": {
+    "rollup": "^4.50.0"
+  }
 }

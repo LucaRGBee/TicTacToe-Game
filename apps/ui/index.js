@@ -1,3 +1,5 @@
+import "./style.css"
+
 let h2 = document.getElementById("turn");
 
 let turn = 0;
@@ -111,3 +113,7 @@ async function checkGame() {
     });
   turn++;
 }
+
+window.clicked = clicked;
+window.cpuTurn = cpuTurn;
+window.checkGame = checkGame;
