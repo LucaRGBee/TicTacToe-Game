@@ -57,7 +57,7 @@ async function cpuTurn() {
         if (counter == num) {
           button.style.background = "#FF0000";
           button.disabled = true;
-          console.log(data["move"][0], data["move"][1])
+          console.log(data["move"][0], data["move"][1]);
           board[data["move"][1]][data["move"][0]] = -1;
         }
         counter++;
@@ -66,7 +66,7 @@ async function cpuTurn() {
     .catch((error) => {
       console.error(error);
     });
-    console.log(board)
+  console.log(board);
 
   await checkGame();
 }
