@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "comp": "tsc",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },

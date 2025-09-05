@@ -1,3 +1,5 @@
+import type {Request, Response} from "express"
+
 const express = require("express");
 const cors = require("cors");
 const { resolve } = require("path");
@@ -7,8 +9,20 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.json());
 
-function checkPotential(a, board, response) {
-  for (let x = 0; x <= 2; x++) {
+type Cell = 0 | 1 | -1
+
+type Board = [
+  [Cell, Cell, Cell],
+  [Cell, Cell, Cell],
+  [Cell, Cell, Cell]
+]
+
+type Iterable = 0 | 1 | 2
+
+type MyResponse = { [key: string]: Array<any> } | undefined
+
+function checkPotential(a: number, board:Board, response: MyResponse) {
+  for (let x = 0 as Iterable; x <= 2; x++) {
     if (board[x][0] + board[x][1] + board[x][2] == a) {
       if (!response) {
         for (let y = 0; y <= 2; y++) {
@@ -21,7 +35,7 @@ function checkPotential(a, board, response) {
 
     if (board[0][x] + board[1][x] + board[2][x] == a) {
       if (!response) {
-        for (let y = 0; y <= 2; y++) {
+        for (let y = 0 as Iterable ; y <= 2; y++) {
           if (board[y][x] == 0) {
             response = { move: [x, y] };
           }
@@ -32,7 +46,7 @@ function checkPotential(a, board, response) {
 
   if (board[0][0] + board[2][2] + board[1][1] == a && !response) {
     if (!response) {
-      for (let x = 0; x <= 2; x++) {
+      for (let x = 0 as Iterable; x <= 2; x++) {
         if (board[x][x] == 0) {
           response = { move: [x, x] };
         }
@@ -42,7 +56,7 @@ function checkPotential(a, board, response) {
 
   if (board[0][2] + board[2][0] + board[1][1] == a && !response) {
     if (!response) {
-      for (let x = 0; x <= 2; x++) {
+      for (let x = 0 as Iterable; x <= 2; x++) {
         if (board[x][2 - x] == 0) {
           response = { move: [2 - x, x] };
         }
@@ -53,10 +67,10 @@ function checkPotential(a, board, response) {
   return response;
 }
 
-app.post("/cpu-move", (req, res) => {
+app.post("/cpu-move", (req: Request, res: Response) => {
   const { board } = req.body;
 
-  let response;
+  let response: MyResponse;
 
   response = checkPotential(-2, board, response);
 
@@ -65,7 +79,8 @@ app.post("/cpu-move", (req, res) => {
   }
 
   if (!response) {
-    let possible = [];
+    let possible: Array<number[]> = [];
+    
     for (let x = 0; x <= 2; x++) {
       for (let y = 0; y <= 2; y++) {
         if (board[x][y] == 0) {
@@ -73,14 +88,14 @@ app.post("/cpu-move", (req, res) => {
         }
       }
     }
-    response = { move: possible[Math.floor(Math.random() * possible.length)] };
+    response = { move: possible[Math.floor(Math.random() * possible.length)]! };
   }
 
   res.setHeader("Content-Type", "application/json");
   res.status(200).json(response);
 });
 
-app.post("/check-game", (req, res) => {
+app.post("/check-game", (req: Request, res: Response) => {
   const { board } = req.body;
   const { turn } = req.body;
 

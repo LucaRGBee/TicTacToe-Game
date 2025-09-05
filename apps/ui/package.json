@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "keywords": [],
+  "scripts":{
+    "comp": "tsc"
+  },
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.15.1"
