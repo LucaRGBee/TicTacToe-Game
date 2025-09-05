@@ -1,4 +1,4 @@
-import "./style.css"
+import "./style.css";
 
 let h2 = document.getElementById("turn");
 

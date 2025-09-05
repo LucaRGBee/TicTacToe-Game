@@ -1,39 +1,15 @@
 const express = require("express");
+const cors = require("cors");
 const { resolve } = require("path");
 const app = express();
 const PORT = 8080;
 
-const allowedOrigins = [
-  "http://127.0.0.1:3000",
-  "http://localhost:3000",
-  "http://127.0.0.1:5500",
-  "http://localhost:5500",
-];
-
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-  }
-
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  next();
-});
-
+app.use(cors());
 app.use(express.json());
 
 function checkPotential(a, board, response) {
   for (let x = 0; x <= 2; x++) {
     if (board[x][0] + board[x][1] + board[x][2] == a) {
-      console.log(board);
       if (!response) {
         for (let y = 0; y <= 2; y++) {
           if (board[x][y] == 0) {
@@ -99,8 +75,6 @@ app.post("/cpu-move", (req, res) => {
     }
     response = { move: possible[Math.floor(Math.random() * possible.length)] };
   }
-
-  console.log(response);
 
   res.setHeader("Content-Type", "application/json");
   res.status(200).json(response);
