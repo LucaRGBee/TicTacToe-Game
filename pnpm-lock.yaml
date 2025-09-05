@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      vite-plugin-css-injected-by-js:
-        specifier: ^3.5.2
-        version: 3.5.2(vite@7.1.4)
     devDependencies:
       prettier:
         specifier: ^3.6.2
@@ -18,6 +14,9 @@ importers:
       vite:
         specifier: ^7.1.2
         version: 7.1.4
+      vite-plugin-css-injected-by-js:
+        specifier: ^3.5.2
+        version: 3.5.2(vite@7.1.4)
 
   apps/api:
     dependencies:
@@ -30,6 +29,8 @@ importers:
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
+
+  apps/ui: {}
 
 packages:
 
