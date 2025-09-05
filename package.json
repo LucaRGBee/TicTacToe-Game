@@ -11,5 +11,8 @@
   "devDependencies": {
     "prettier": "^3.6.2",
     "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "vite-plugin-css-injected-by-js": "^3.5.2"
   }
 }
