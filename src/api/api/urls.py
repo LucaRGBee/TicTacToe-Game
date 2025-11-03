@@ -60,7 +60,7 @@ urlpatterns = [
     ),
     path("game/<int:id>/", GetGameView.as_view(), name="get_game"),
     path("game/make-turn/", MakeTurnView.as_view(), name="make_turn"),
-    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("docs/download/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),

@@ -329,3 +329,5 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/git,macos,django,python,react
 
 schema.yaml
+
+database/

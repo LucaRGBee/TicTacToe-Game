@@ -14,6 +14,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-u1&8sq@w!pv)i=su@g(7g%=c&$7t+(_ssx3qilo4bd8inpofz5"
+SECRET_KEY = os.environ.get("API_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,12 +90,6 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
-SWAGGER_SETTINGS = {
-    "SECURITY_DEFINITIONS": {
-        "AAAAAA": {"type": "apiKey", "in": "header", "name": "Authorization"}
-    },
-}
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -145,10 +140,14 @@ WSGI_APPLICATION = "api.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
+    'default': {
+        'ENGINE': os.environ.get("DB_ENGINE"),
+        'NAME': 'tictactoe',
+        'USER': os.environ.get("DB_USERNAME"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': 'db',  # or 'db' if running in Docker
+        'PORT': '5432',
+    }
 }
 
 
