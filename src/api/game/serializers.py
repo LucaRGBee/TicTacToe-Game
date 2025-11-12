@@ -32,6 +32,7 @@ class GameSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "playerOne": {"read_only": True},
+            "password": {"write_only": True},
         }
 
     def create(self, validated_data):

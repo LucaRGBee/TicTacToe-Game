@@ -79,11 +79,18 @@ class GetGameView(generics.RetrieveAPIView):
     lookup_field = "id"
 
 
-class GetUserView(generics.RetrieveAPIView):
+class GetUserByIdView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
     lookup_field = "id"
+
+
+class GetUserByNameView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+    lookup_field = "username"
 
 
 class GetGamesView(generics.ListAPIView):
@@ -132,6 +139,11 @@ class JoinGameView(APIView):
         if game.ended:
             return Response(
                 {"error": "this game has ended use /game/get/<id> instead"}, status=400
+            )
+            
+        if game.playerTwo != None:
+            return Response(
+                {"error": "this game already has 2 players participating"}
             )
 
         if game.password != self.request.data.get("password"):

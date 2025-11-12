@@ -15,6 +15,6 @@ RUN uv pip install . --system --no-deps
 
 COPY . .
 
-RUN chmod +x test.sh
+RUN chmod +x start.sh
 
 ENTRYPOINT [ "./start.sh" ]
