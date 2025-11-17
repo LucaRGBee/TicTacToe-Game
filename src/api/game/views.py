@@ -127,7 +127,6 @@ class JoinGameView(APIView):
         responses={201: GameSerializer},
         description="Create a new game. Optionally provide a password.",
     )
-    
     def post(self, request, *args, **kwargs):
         gid = self.request.data.get("id")
 
@@ -140,11 +139,9 @@ class JoinGameView(APIView):
             return Response(
                 {"error": "this game has ended use /game/get/<id> instead"}, status=400
             )
-            
+
         if game.playerTwo != None:
-            return Response(
-                {"error": "this game already has 2 players participating"}
-            )
+            return Response({"error": "this game already has 2 players participating"}, status=400)
 
         if game.password != self.request.data.get("password"):
             return Response({"error": "invalid password"}, status=400)
@@ -158,7 +155,7 @@ class JoinGameView(APIView):
         game.save()
 
         seriealizer = GameSerializer(game)
-        return Response(seriealizer.data)
+        return Response(seriealizer.data, status=200)
 
 
 class MakeTurnView(APIView):
@@ -227,6 +224,7 @@ class MakeTurnView(APIView):
 
         response_data = {"status": check, "board": game.board}
         return Response(ResponseSerializer(response_data).data, status=201)
+
 
 def home(request):
     return render(request, "home.html")

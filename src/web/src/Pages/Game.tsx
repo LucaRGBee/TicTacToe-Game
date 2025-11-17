@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import api from "../api"
 import Button from "../Components/Button"
-import Test from "../Components/Test"
+import TurnText from "../Components/TurnText"
+import PlayerText from "../Components/PlayerText"
 
 export interface GameData {
   turn: number;
@@ -51,7 +52,7 @@ export default function Game(){
         
         if (data.playerOne === id) {
             setPlayerNumber(1)
-        } else {
+        }else if (data.playerTwo === id){
             setPlayerNumber(2)
         }
         
@@ -67,8 +68,8 @@ export default function Game(){
         <>
         <div id="div">
             <h1>TicTacToe</h1>
-            <h2>You are Player {playerNumber}</h2>
-            <Test data={data} turn={turn}/>           
+            <PlayerText playerNumber={playerNumber}/>
+            <TurnText data={data} turn={turn}/>           
             <Button id={Number(gameid)} x={0} y={0} data={data}></Button>
             <Button id={Number(gameid)} x={1} y={0} data={data}></Button>
             <Button id={Number(gameid)} x={2} y={0} data={data}></Button>

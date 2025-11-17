@@ -45,7 +45,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1), 
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 SPECTACULAR_SETTINGS = {
@@ -141,13 +141,13 @@ WSGI_APPLICATION = "api.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get("DB_ENGINE"),
-        'NAME': 'tictactoe',
-        'USER': os.environ.get("DB_USERNAME"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': 'db',  # or 'db' if running in Docker
-        'PORT': '5432',
+    "default": {
+        "ENGINE": os.environ.get("DB_ENGINE"),
+        "NAME": "tictactoe",
+        "USER": os.environ.get("DB_USERNAME"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": "db",  # or 'db' if running in Docker
+        "PORT": "5432",
     }
 }
 

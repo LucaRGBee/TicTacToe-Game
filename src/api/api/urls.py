@@ -24,7 +24,6 @@ from django.shortcuts import render
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import (
     SpectacularAPIView,
-    SpectacularRedocView,
     SpectacularSwaggerView,
 )
 from game.views import (
@@ -42,15 +41,15 @@ from game.views import (
     home,
 )
 
-urlpatterns = [    
+urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api-auth", include("rest_framework.urls")),
+    path("api-auth/", include("rest_framework.urls")),
     path("token/", TokenObtainPairView.as_view(), name="get_token"),
     path("token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("user/register/", CreateUserView.as_view(), name="register"),
     path("user/", GetUsersView.as_view(), name="get_users"),
-    path("user/<int:id>/", GetUserByIdView.as_view(), name="get_user"),
-    path("user/<str:username>/", GetUserByNameView.as_view(), name="get_user"),
+    path("user/<int:id>/", GetUserByIdView.as_view(), name="get_user_by_id"),
+    path("user/<str:username>/", GetUserByNameView.as_view(), name="get_user_by_name"),
     path("game/create/", CreateGameView.as_view(), name="create_game"),
     path("game/next/", CreateNextGameView.as_view(), name="next_game"),
     path("game/join/", JoinGameView.as_view(), name="join_game"),
@@ -60,14 +59,14 @@ urlpatterns = [
         GetGamesUserView.as_view(),
         name="get_games_from_user",
     ),
-    path("game/<int:id>/", GetGameView.as_view(), name="get_game"),
     path("game/make-turn/", MakeTurnView.as_view(), name="make_turn"),
     path("docs/download/", SpectacularAPIView.as_view(), name="schema"),
+
+    path("game/<int:id>/", GetGameView.as_view(), name="get_game"),    
     path(
         "docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="docs",
     ),
-    
-    path("", home)
+    path("", home, name="home"),
 ]

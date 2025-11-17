@@ -1,11 +1,11 @@
 import type { GameData } from "../Pages/Game"
 
-interface TestProps{
+interface TurnTextProps{
     data: GameData | null,
     turn: number
 }
 
-export default function Test({ data, turn }: TestProps ) {
+export default function TurnText({ data, turn }: TurnTextProps ) {
     console.log(data)
     if (data) {
         if (data.ended === false) {
