@@ -214,5 +214,4 @@ def test_make_turn(api_client, test_authentication, db):
     Game.objects.create(playerOne=user, board=[[0, 0, 0], [0, 0, 0], [0, 0, 0]], turn=9)
     
     response = api_client.post("/game/make-turn/", data={"id": 6, "x": 1, "y": 0}, format="json")
-    print(response.data)
     assert response.status_code == 201
