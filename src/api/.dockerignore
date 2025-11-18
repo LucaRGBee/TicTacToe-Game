@@ -1,0 +1,3 @@
+.venv/
+dockerfile
+db.sqlite3
