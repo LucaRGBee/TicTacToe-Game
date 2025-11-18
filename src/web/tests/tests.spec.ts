@@ -25,6 +25,7 @@ test('test login, register and logout', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Username' }).press('Tab');
   await page.getByRole('textbox', { name: 'Password' }).fill(password);
   await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByRole('heading', { name: 'HomePage' })).toBeVisible();
 });
 
 test("test create, join and watch game", async ({ page }) => {
@@ -53,6 +54,7 @@ test("test create, join and watch game", async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await page.waitForURL("http://www.test.com/")
   await page.goto(`http://www.test.com/game/${id}`);
+  await expect(page.getByRole('heading', { name: 'TicTacToe' })).toBeVisible();
 })
 
 test("", async () => {
