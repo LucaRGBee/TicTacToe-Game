@@ -1,0 +1,29 @@
+FROM node:20 AS build
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/shared/package.json ./apps/shared/
+COPY apps/api/package.json ./apps/api/
+
+RUN npm install -g pnpm
+
+RUN pnpm install --frozen-lockfile
+
+COPY apps/api apps/api
+COPY apps/shared apps/shared
+
+WORKDIR /app/apps/api
+RUN pnpm run build
+
+FROM node:20
+
+WORKDIR /app
+COPY --from=build /app/apps/api/dist .
+COPY apps/api/package.prod.json ./package.json
+COPY pnpm-lock.yaml .
+
+RUN npm install -g pnpm
+RUN pnpm install --prod
+
+CMD ["node", "server.js"]

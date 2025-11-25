@@ -1,0 +1,22 @@
+FROM node:20 AS build
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+COPY apps/ui/package.json apps/ui/
+COPY apps/shared/package.json apps/shared/
+
+RUN npm install -g pnpm
+
+RUN pnpm install --frozen-lockfile
+
+COPY apps/ui apps/ui
+COPY apps/shared apps/shared
+
+WORKDIR /app/apps/ui
+RUN pnpm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/apps/ui/dist /usr/share/nginx/html
